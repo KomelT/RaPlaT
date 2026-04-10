@@ -470,23 +470,23 @@ cellTableDescrib = [
                     ['freq', 'f', [1., 10000.]],
                     ['power', 'f', [-30., 100.]],
                     ['radius', 'f', [0., 100.]],
-                    ['model', 's', ['hata'],['cost231'],['hataDEM'],['waik'],['fspl']],
+                    ['model', 's', ['hata'],['cost231'],['hataDEM'],['waik'],['fspl'],['nr3gpp']],
                     ['P1', 's', ['urban', 'suburban', 'open'],\
                            's', ['metropolitan', 'medium_cities'],\
                            'f', [0., 0.],\
                            'f', [20., 60.],\
-                           'f', [0., 9.]],
-#                           hata cost231 hataDEM        waik                                    fspl
-                    [ 'P2', '-', '-',    'f', [0., 0.], 'i', [30,  70],                         'f', [-100., +100.]], 
-                    [ 'P3', '-', '-',    'f', [0., 0.], 'i', [ 5,  35],                         '-'],
-                    [ 'P4', '-', '-',    'f', [0., 0.], 'i', [ 3,  15],                         '-'],
-                    [ 'P5', '-', '-',    '-',           'i', [ 3,  25],                         '-'],
-                    [ 'P6', '-', '-',    '-',           'i', [10,  30],                         '-'],
-                    [ 'P7', '-', '-',    '-',           'i', [10,  25],                         '-'],
-                    [ 'P8', '-', '-',    '-',           'i', [20,  50],                         '-'],
-                    [ 'P9', '-', '-',    '-',           'i', [ 0, 300],                         '-'],
-                    ['P10', '-', '-',    '-',           'i', [ 0, 180],                         '-'],
-                    ['P11', '-', '-',    '-',           's', ['metropolitan', 'medium_cities'], '-']
+                           'f', [0., 9.], 's', ['uma', 'umi']],
+#                           hata cost231 hataDEM        waik                                    fspl                     nr3gpp
+                    [ 'P2', '-', '-',    'f', [0., 0.], 'i', [30,  70],                         'f', [-100., +100.],    '-'], 
+                    [ 'P3', '-', '-',    'f', [0., 0.], 'i', [ 5,  35],                         '-',                    '-'],
+                    [ 'P4', '-', '-',    'f', [0., 0.], 'i', [ 3,  15],                         '-',                    '-'],
+                    [ 'P5', '-', '-',    '-',           'i', [ 3,  25],                         '-',                    '-'],
+                    [ 'P6', '-', '-',    '-',           'i', [10,  30],                         '-',                    '-'],
+                    [ 'P7', '-', '-',    '-',           'i', [10,  25],                         '-',                    '-'],
+                    [ 'P8', '-', '-',    '-',           'i', [20,  50],                         '-',                    '-'],
+                    [ 'P9', '-', '-',    '-',           'i', [ 0, 300],                         '-',                    '-'],
+                    ['P10', '-', '-',    '-',           'i', [ 0, 180],                         '-',                    '-'],
+                    ['P11', '-', '-',    '-',           's', ['metropolitan', 'medium_cities'], '-',                    '-']
                    ]
 #
 #                    ['model', 's', ['hata'],['cost231'],['hataDEM'],['waik'],['fspl'],['itm'],['urban'],['ITUR1546-4']],
@@ -1327,6 +1327,15 @@ for row in cellTable:
                             ' rx_ant_height=' + rxAntHeightStr +
                             ' frequency=' + gCSVp('freq') + ' --overwrite')
 
+            # model nr3gpp (GRASS command r.nr3gpp)
+            elif modelName == 'nr3gpp':
+                modelCmd = ('r.nr3gpp input_dem=' + demFilename + ' output=' + modelFilename +
+                            ' scenario=' + gCSVp('P1') +
+                            ' coordinate=' + gCSVp('antEast') + ',' + gCSVp('antNorth') +
+                            ' ant_height=' + gCSVp('antHeightAG') + ' radius=' + gCSVp('radius') +
+                            ' rx_ant_height=' + rxAntHeightStr +
+                            ' frequency=' + gCSVp('freq') + ' --overwrite')
+
 #            # model itm (GRASS command r.itm)
 #            elif modelName == 'itm':
 #                modelCmd = ('r.itm input_dem=' + demFilename + ' output=' + modelFilename +
@@ -1706,4 +1715,3 @@ if flags['x']:
 
 
 grass.info('Processing finished')
-

@@ -1,0 +1,35 @@
+<h2>DESCRIPTION</h2>
+
+<em>r.nr3gpp</em> computes a path-loss raster from a single transmitter using
+simplified large-scale formulas based on 3GPP TR 38.901 for:
+<ul>
+  <li><b>uma</b> (Urban Macro)</li>
+  <li><b>umi</b> (Urban Micro Street Canyon)</li>
+</ul>
+
+The output raster stores path loss in dB.
+
+<h2>NOTES</h2>
+
+<ul>
+  <li>Input frequency is in MHz (internally converted to GHz).</li>
+  <li>Path loss is calculated for distances from 10 m up to <b>radius</b>.</li>
+  <li>The model is large-scale only; it does not include clutter/building diffraction by itself.</li>
+</ul>
+
+<h2>EXAMPLE</h2>
+
+<div class="code"><pre>
+r.nr3gpp input_dem=dem_map output=nr_uma \
+  scenario=uma coordinate=460697,99918 ant_height=25 rx_ant_height=1.5 \
+  frequency=3500 radius=10
+</pre></div>
+
+<h2>SEE ALSO</h2>
+
+<em>
+<a href="r.fspl.html">r.fspl</a>,
+<a href="r.hata.html">r.hata</a>,
+<a href="r.hataDEM.html">r.hataDEM</a>,
+<a href="r.raplat.html">r.raplat</a>
+</em>
